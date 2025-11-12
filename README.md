@@ -26,12 +26,10 @@ Amplitude Modulation is the process of changing the amplitude of a relatively hi
 1)	Under modulation :	m<1, Em < Ec
 2)	Critical modulation: m-1, Em = Ec
 3)	Over modulation:	m>1, Em > Ec
-
-
-
 Note: Keep all the switch faults in off position
 
 Algorithm
+
 1.	Define Parameters
 First, define the parameters for your signals:
 •	Carrier frequency (fc)
@@ -74,26 +72,58 @@ Compare the original modulating signal with the demodulated signal. PROCEDURE
 •	If any Error, correct it in code and execute again
 •	Verify the generated waveform using Tabulation and Model Waveform
 
-Program
 
+## PROGRAM
+```
+clc;
+clear;
+close;
+Ac=16.6;
+Am=7.8;
+Fc=4460;
+Fm=250;
+Fs=40000;
+t=0:1/Fs:2/Fm;
+E1=Am*sin(2*%pi*Fm*t);
+subplot(4,1,1);
+plot(t,E1);
+xlabel("Time(s");
+ylabel("Amplitude");
+title("Message Signal");
+E2=Ac*sin(2*%pi*Fc*t);
+subplot(4,1,2);
+plot(t,E2);
+xlabel("Time(s");
+ylabel("Amplitude");
+title("Carrier Signal");
+E3=(Ac+Am*sin(2*%pi*Fm*t)).sin(2%pi*Fc*t);
+subplot(4,1,3);
+plot(t,E3);
+xlabel("Time(s");
+ylabel("Amplitude");
+title("AM Signal");
+demodulated_signal=abs(hilbert(E3))-Ac;
+subplot(4,1,4);
+plot(t,demodulated_signal);
+xlabel("Time(s");
+ylabel("Amplitude");
+title("Demodulated Signal");
+xgrid();
+```
+Output Waveform:
+![WhatsApp Image 2025-11-12 at 18 24 19_dae5779d](https://github.com/user-attachments/assets/9ebc1664-72cd-40fb-a433-8bd8826431d9)
 
+[TABULATION:
 
-Output Waveform
-
-
-
-
-
-TABULATION:
-
-
+![WhatsApp Image 2025-11-12 at 18 49 00_c9456450](https://github.com/user-attachments/assets/234cd1c9-505c-4cad-9518-fc234a30b6a4)
 
 Calculation
-1.	ma (Theory) = am/ac =
-2.	ma(Practical) = (Emax-Emin)/(Emax+Emin) =
-
-
+1.	ma (Theory) = am/ac =0.46987
+2.	ma(Practical) = (Emax-Emin)/(Emax+Emin) =0.864
+   
 MODEL GRAPH
+
+
  <img width="919" height="1290" alt="image" src="https://github.com/user-attachments/assets/55326c5b-7dd5-4873-aaf6-d219bb7c4420" />
 
  
